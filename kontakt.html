@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8" />
+    <title>Kontakt - Rowerem po Trójmieście</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" type="text/css" />
+    <link rel="Shortcut icon" href="img/bicyclehead.jpg" />
+</head>
+<body>
+    <div id="wrapper">
+        <header>
+            <h1>Formularz kontaktowy</h1>
+        </header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Strona główna</a></li>
+                <li><a href="trasy.html">Trasy rowerowe</a></li>
+                <li><a href="aplikacje.html">Aplikacje rowerowe na smartfona</a></li>
+                <li class="podmenu"><a href="aplikacje.html#naviki">Naviki</a></li>
+                <li class="podmenu"><a href="aplikacje.html#googlemaps">Google Maps</a></li>
+                <li class="podmenu"><a href="aplikacje.html#activy">Activy</a></li>
+                <li class="podmenu"><a href="aplikacje.html#strava">Strava</a></li>
+                <li><a class="active" href="kontakt.html">Kontakt</a></li>
+            </ul>
+        </nav>
+        <div id="content">
+            <p>Chcesz podzielić się czymś ciekawym z innymi? Wypełnij formularz kontaktowy, a Twój pomysł zostanie umieszczony na stronie.</p>
+            <form action="/action.php">
+                Twoje imię: <input type="text" name="name" />
+                <br /><br />
+                Twój adres e-mail: <input type="text" name="e-mail" />
+                <br /><br />
+                Temat wiadomości:
+                <select name="subjectlist" id="subjectlist">
+                    <option value="trasa">Nowa trasa</option>
+                    <option value="aplikacja">Nowa aplikacja</option>
+                    <option value="inne">Inny</option>
+                </select>
+                <br /><br />
+                Temat wiadomości (wypełnić tylko po wybraniu "inny"): <input type="text" name="temat" />
+                <br /><br />
+                <textarea rows="7" cols="50">Twoja wiadomość</textarea>
+                <br /><br />
+                Załącz plik (np. mapa trasy) - opcjonalne <input type="file" name="file" />
+                <br /><br />
+                Czy chcesz, aby Twoje imię zostało umieszczone na stronie?
+                <label for="tak">Tak</label>
+                <input type="radio" name="podpis" id="tak" value="tak" checked />
+                <label for="nie">Nie</label>
+                <input type="radio" name="podpis" id="nie" value="nie" />
+                <br /><br />
+                Czy używasz jakąś aplikację rowerową?
+                <input type="checkbox" name="naviki" value="naviki" />Naviki
+                <input type="checkbox" name="googlemaps" value="googlemaps" />Google Maps
+                <input type="checkbox" name="strava" value="strava" />Strava
+                <input type="checkbox" name="inna" value="inna" />Inna
+                <br /><br />
+                <input type="submit" value="Wyślij" />
+                <input type="reset" />
+            </form>
+        </div>
+
+    </div>
+    <footer>
+        <table class="footer">
+            <tr>
+                <td class="footer">Hipertekst i hipermedia</td>
+                <td class="footer">Tomasz Pietrowski</td>
+                <td class="footer">Elektronika i telekomunikacja</td>
+            </tr>
+        </table>
+    </footer>
+</body>
+</html>

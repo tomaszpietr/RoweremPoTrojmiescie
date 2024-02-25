@@ -1,0 +1,207 @@
+﻿<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified">
+
+	<xs:element name="moje_hobby">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="nav" type="navType"/>
+				<xs:element name="informacje" type="informationType"/>
+				<xs:element name="trasy" type="routesType"/>
+				<xs:element name="aplikacje" type="appsType" />
+				<xs:element name="kontakt" type="contactType"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:attribute name="source">
+		<xs:simpleType>
+			<xs:restriction base="xs:anyURI"/>
+		</xs:simpleType>
+	</xs:attribute>
+	
+	<xs:attribute name="content">
+		<xs:simpleType>
+			<xs:restriction base="xs:string"/>
+		</xs:simpleType>
+	</xs:attribute>
+	
+	<xs:attribute name="kind">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:enumeration value="enter"/>
+				<xs:enumeration value="tick"/>
+				<xs:enumeration value="choose"/>
+				<xs:enumeration value="attach"/>
+				<xs:enumeration value="list"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:attribute>
+
+	<xs:complexType name="navType">
+		<xs:sequence>
+			<xs:element name="strona" type="pageType" minOccurs="1" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="pageType">
+		<xs:sequence>
+			<xs:element name="tytuł" type="titleType" />
+			<xs:element name="aplikacje" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute ref="content" use="required"/>
+		<xs:attribute ref="source" use="required"/>
+	</xs:complexType>
+
+	<xs:simpleType name="titleType">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	
+	<xs:complexType name="informationType">
+		<xs:sequence>
+			<xs:element name="tekst" type="longStringType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="zdjęcia" type="imagesType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="imagesType">
+		<xs:sequence>
+			<xs:element name="zdjęcie" type="imageType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="imageType">
+		<xs:attribute ref="source" use="required"/>
+	</xs:complexType>
+	
+	<xs:complexType name="routesType">
+		<xs:sequence>
+			<xs:element name="trasa" type="routeType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="routeType">
+		<xs:sequence>
+			<xs:element name="nazwa" type="xs:string"/>
+			<xs:element name="mapa" type="imageType" />
+			<xs:element name="dystans" type="distanceType" />
+			<xs:element name="opis" type="longStringType" />
+			<xs:element name="szczegóły" type="linkType" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="distanceType">
+		<xs:simpleContent>
+			<xs:extension base="shortStringType">
+				<xs:attribute name="unit" use="required">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:pattern value="km|m"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+
+	<xs:complexType name="linkType">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute name="source" type="xs:anyURI" use="required"/>
+				<xs:attribute name="system" use="optional">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:pattern value="android|ios"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:attribute>
+				<xs:attribute name="type" use="optional">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:pattern value="downloadapp|gotopage"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	
+	<xs:simpleType name="longStringType">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="50"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="shortStringType">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="20"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:complexType name="appsType">
+		<xs:sequence>
+			<xs:element name="wstęp" type="longStringType"/>
+			<xs:element name="aplikacja" type="appType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="appType">
+		<xs:sequence>
+			<xs:element name="nazwa" type="shortStringType"/>
+			<xs:element name="ikona" type="imageType"/>
+			<xs:element name="opis" type="longStringType"/>
+			<xs:element name="linki" type="linksType"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="linksType">
+		<xs:sequence>
+			<xs:element name="link" type="linkType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="contactType">
+		<xs:sequence>
+			<xs:element name="wstęp" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="imię" type="formType"/>
+			<xs:element name="e-mail" type="formType"/>
+			<xs:element name="tematy" type="listType"/>
+			<xs:element name="temat_inny" type="formType"/>
+			<xs:element name="plik" type="formType"/>
+			<xs:element name="imię_na_stronie">
+			<xs:complexType>
+				<xs:sequence>
+					<xs:element name="tekst" type="xs:string"/>
+					<xs:element name="wybór" type="xs:string"/>
+					<xs:element name="wybór" type="xs:string"/>
+				</xs:sequence>
+			<xs:attribute ref="kind" />
+			</xs:complexType>
+			</xs:element>
+		<xs:element name="aplikacje">
+			<xs:complexType>
+				<xs:sequence>
+					<xs:element name="tekst" type="xs:string"/>
+					<xs:element name="aplikacja" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			<xs:attribute ref="kind" />
+			</xs:complexType>
+		</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="listType">
+		<xs:sequence>
+			<xs:element name="tekst" type="xs:string"/>
+			<xs:element name="temat" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	<xs:attribute ref="kind" use="required"/>
+	</xs:complexType>
+	
+	<xs:complexType name="formType">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute ref="kind"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+</xs:schema>
